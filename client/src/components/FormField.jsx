@@ -10,6 +10,7 @@ const FormField = ({ fieldUser, onChange, formData }) => {
 
         return start + finish;
     };
+    
     return (
         <div className="unit">
             <label>{capitalize(fieldUser)}:</label>

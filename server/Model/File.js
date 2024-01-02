@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
+import sequelize from "../SequelizeInstance.js";
 
-const File = Sequelize.define("File", {
+export const File = sequelize.define("file", {
     // can be downloaded and uploaded as .pdfs
     authorId: {
         type: Sequelize.INTEGER,
@@ -13,5 +14,4 @@ const File = Sequelize.define("File", {
         type: Sequelize.STRING,
     },
 });
-
-export default File;
+ 

@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        user: "",
-        password: "",
-    });
+    const initialState = {
+        user: "augustin_cileanu.professor.ase.ro",
+        password: "12345",
+    };
+    const [formData, setFormData] = useState(initialState);
 
     const handleFormFieldChange = (fieldUser, value) => {
         const modifiedForm = {
@@ -17,23 +18,30 @@ const Login = () => {
             [fieldUser]: value,
         };
         setFormData(modifiedForm);
-        console.log(modifiedForm);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.user !== "" && formData.password !== "") {
+        const condition = formData.user !== "" && formData.password !== "";
+        if (condition) {
             try {
                 const transferData = {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 };
-                const response = await fetch("/server/submitFormLogin", transferData);
+                const response = await fetch("/api/login", transferData);
 
-                if (response.ok) navigate("/home");
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data.message);
+                    console.log(data.data);
+
+                    localStorage.setItem("user", JSON.stringify(data));
+                    setFormData(initialState);
+                    navigate("/home");
+                }
+
             } catch (err) {
                 console.warn(err);
             }
@@ -41,22 +49,24 @@ const Login = () => {
     };
 
     return (
-        <>
-            <form>
+        <div className="container">
+            <form className="content">
                 <FormField
+                    className="unit"
                     fieldUser={"user"}
                     onChange={handleFormFieldChange}
                     formData={formData}
                 />
                 <FormField
+                    className="unit"
                     fieldUser={"password"}
                     onChange={handleFormFieldChange}
                     formData={formData}
                 />
             </form>
 
-            <button onClick={(e) => handleSubmit(e)}>Login</button>
-        </>
+            <button onClick={(e) => handleSubmit(e)}>Authenticate</button>
+        </div>
     );
 };
 
