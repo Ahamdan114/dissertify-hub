@@ -1,0 +1,40 @@
+Comenzi pentru testarea bazei de date.
+
+POST -> http://localhost:8080/api/user
+
+{
+  "user": "augustin_cileanu.professor.ase.ro",
+  "password":"12345"
+}
+
+POST -> http://localhost:8080/api/user
+
+{
+  "user": "sorinel_munteanu.professor.ase.ro",
+  "password":"12345"
+}
+
+POST -> http://localhost:8080/api/user
+
+{
+  "user": "madalin_baleanu.student.ase.ro",
+  "password":"6789"
+}
+
+POST -> http://localhost:8080/api/request
+
+{
+  "studentName": "madalin_baleanu.student.ase.ro",
+  "professorName": "augustin_cileanu.professor.ase.ro",
+  "title": "Cerere extrem de buna si nebuna disertatie",
+  "description": "Buna ziua! Ce mai faceti? Doresc sa lucrez cu dumneavoastra la disertatie. Va multumesc!"
+}
+
+POST -> http://localhost:8080/api/request
+
+{
+  "studentName": "madalin_baleanu.student.ase.ro",
+  "professorName": "sorinel_munteanu.professor.ase.ro",
+  "title": "Cerere buna si nebuna disertatie",
+  "description": "Buna ziua! Doresc sa am disertatie! Vreau sa lucrez cu dumneavoastra la disertatie. Va multumesc!"
+}
