@@ -22,8 +22,7 @@ const Home = () => {
         .then(setRequests)
     
     useEffect(() => {
-        fetchRequests()
-        setInterval(fetchRequests, 1000 * 10)
+        setInterval(fetchRequests, 1000 * 20)
     }, [])
 
     const [isRequest, setIsRequest] = useState(false)

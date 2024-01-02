@@ -8,6 +8,7 @@ User.hasMany(Request, { foreignKey: 'professorID', as: 'professorRequests' });
 
 Request.belongsTo(User, { foreignKey: 'studentID', as: 'student' });
 Request.belongsTo(User, { foreignKey: 'professorID', as: 'professor' });
-Request.hasMany(Transition);
+
+Request.hasMany(Transition, {foreignKey: 'requestID'})
 
 export { User, Request, Transition };

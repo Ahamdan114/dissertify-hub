@@ -1,28 +1,35 @@
 import { useState } from "react";
 import "./CollapsibleRequests.css";
-
+import Card from "./Card.jsx";
+import ButtonGroup from "./ButtonGroup.jsx";
 export const CollapsibleRequests = ({ userType, requests, title }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    // console.log(requests, userType);
-    const nameUserSelection = userType === "student";
 
-    const updateState = async (status, requestID) => {
+    const [feedback, setFeedback] = useState("");
+    const nameUserSelection = userType !== "student";
+
+    const updateState = async (status, requestID, feedback) => {
         await fetch(`/api/request/${requestID}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status }),
-        })
+            body: JSON.stringify({ status, feedback }),
+        });
+        setFeedback("");
     };
 
     const handleAccept = (requestID) => {
-        console.log(requestID);
-        updateState("accepted", requestID);
+        updateState("accepted", requestID, feedback);
     };
 
     const handleReject = (requestID) => {
-        console.log(requestID);
-        updateState("rejected", requestID);
+        updateState("rejected", requestID, feedback);
     };
+
+    const handleUpload = (requestID) => {
+        updateState("completed", requestID, feedback);
+    };
+
+    const handleChange = (e) => setFeedback(e.target.value);
 
     return (
         <div className="card">
@@ -37,38 +44,56 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
             </div>
             {isExpanded && (
                 <div className="flex">
-                    {requests.map(
-                        ({
-                            id,
-                            title,
-                            description,
-                            status,
-                            student: { name: studName },
-                            professor: { name: profName },
-                        }) => (
-                            <div key={id}>
-                                <div className="card">
-                                    <h4>{title}</h4>
-                                    <p>{description}</p>
-                                    <p>{nameUserSelection ? profName : studName}</p>
-                                </div>
-                                <div className="buttons_request">
-                                    <button
-                                        className="btn btn-accept"
-                                        onClick={() => handleAccept(id)}
-                                    >
-                                        Accept
-                                    </button>
-                                    <button
-                                        className="btn btn-reject"
-                                        onClick={() => handleReject(id)}
-                                    >
-                                        Reject
-                                    </button>
-                                </div>
-                            </div>
-                        )
-                    )}
+                    {/* To modify here the upper limit of accepted category */}
+                    {requests
+                        .slice(0, requests.status === "accepted" ? requests.length : 3)
+                        .map(
+                            ({
+                                id,
+                                title,
+                                description,
+                                status,
+                                student: { name: studName },
+                                professor: { name: profName },
+                                transitions,
+                            }) => {
+                                const lastTransition = transitions.sort(
+                                    (a, b) =>
+                                        new Date(b.createdAt) - new Date(a.createdAt)
+                                )[0];
+
+                                return (
+                                    <div key={id}>
+                                        <Card
+                                            title={title}
+                                            description={description}
+                                            answer={lastTransition}
+                                            name={nameUserSelection ? profName : studName}
+                                        />
+
+                                        {nameUserSelection && (
+                                            <>
+                                                <ButtonGroup
+                                                    status={status}
+                                                    id={id}
+                                                    handleAccept={handleAccept}
+                                                    handleReject={handleReject}
+                                                    handleUpload={handleUpload}
+                                                />
+
+                                                <div className="text-env">
+                                                    <input
+                                                        placeholder="Explain the reason..."
+                                                        value={feedback}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                );
+                            }
+                        )}
                 </div>
             )}
         </div>

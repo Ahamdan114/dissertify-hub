@@ -30,3 +30,10 @@
     background-color: white;
     border: none
 }
+
+.text-env {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-left: 40px;
+}

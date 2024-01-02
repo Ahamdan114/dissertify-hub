@@ -5,7 +5,6 @@ import { File } from "./Model/index.js";
 import { User, Request, Transition } from "./Model/associations.js";
 import "./Model/associations.js";
 
-
 const PORT = 8080;
 const app = express();
 
@@ -60,18 +59,24 @@ app.get("/api/request/:userId", async (request, response, next) => {
     const { userId } = request.params;
     try {
         const requests = await Request.findAll({
-            where: sequelize.or({ studentID: Number(userId) }, { professorID: Number(userId) },),
+            where: sequelize.or(
+                { studentID: Number(userId) },
+                { professorID: Number(userId) }
+            ),
             include: [
                 {
                     model: User,
-                    as: 'student'
+                    as: "student",
                 },
                 {
                     model: User,
-                    as: 'professor'
+                    as: "professor",
+                },
+                {
+                    model: Transition,
                 },
             ],
-        })
+        });
 
         return response.status(200).json(requests);
     } catch (error) {
@@ -80,23 +85,28 @@ app.get("/api/request/:userId", async (request, response, next) => {
 });
 
 app.patch("/api/request/:requestId", async (request, response, next) => {
-    const {requestId} = request.params
-    const {status} = request.body;
+    const { requestId } = request.params;
+    const { status, feedback } = request.body;
+    console.log(">>>>>>>>>>>>>>>>>" + status)
     const patchedRequest = await Request.findOne({
         where: {
-            id: requestId
-        }
-    })
+            id: requestId,
+        },
+    });
 
     patchedRequest.status = status;
     await patchedRequest.save();
 
     await Transition.create({
         requestID: patchedRequest.id,
-        status:status
-    })
-    return response.sendStatus(200);
-})
+        status,
+        description: feedback,
+    });
+
+
+    
+    return response.status(201).json({patchedRequest});
+});
 
 // Example route to create a request
 app.post("/api/request", async (request, response, next) => {
@@ -123,12 +133,14 @@ app.post("/api/request", async (request, response, next) => {
             professorID: professor.id,
             title,
             description,
-            status: 'pending',
+            status: "pending",
         });
+
         await Transition.create({
             requestID: newRequest.id,
-            status: 'pending',
-        })
+            status: "pending",
+            description
+        });
 
         return response.status(201).json(newRequest);
     } catch (error) {
@@ -137,6 +149,7 @@ app.post("/api/request", async (request, response, next) => {
 });
 
 app.use((err, request, response, next) => {
+    console.log(err)
     response.status(500).send({ message: err });
 });
 

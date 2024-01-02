@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import sequelize from "../SequelizeInstance.js";
-
+import { Request } from "./Request.js";
 export const Transition = sequelize.define("transition", {
     id: {
         type: Sequelize.INTEGER,
@@ -21,7 +21,7 @@ export const Transition = sequelize.define("transition", {
         get() {
             const rawValue = this.getDataValue("createdAt");
             if (rawValue) {
-                const formattedDate = new Date(rawValue).toLocaleDateString("en-US");
+                const formattedDate = new Date(rawValue)
                 return formattedDate;
             }
             return null;
@@ -29,6 +29,15 @@ export const Transition = sequelize.define("transition", {
         set(value) {
             const parsedDate = new Date(value);
             this.setDataValue("createdAt", parsedDate.toISOString().split("T")[0]);
+        },
+    },
+
+    requestID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: Request,
+            key: "id",
         },
     },
 });
