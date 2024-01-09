@@ -3,7 +3,7 @@ import FormField from "./FormField";
 import "./Login.css";
 
 import { useNavigate } from "react-router-dom";
-
+import ThemeChanger from "./ThemeChanger";
 const Login = () => {
     const navigate = useNavigate();
     const initialState = {
@@ -11,13 +11,14 @@ const Login = () => {
         password: "12345",
     };
     const [formData, setFormData] = useState(initialState);
-
+    const [hasIntroduced, setHasIntroduced] = useState(false);
     const handleFormFieldChange = (fieldUser, value) => {
         const modifiedForm = {
             ...formData,
             [fieldUser]: value,
         };
         setFormData(modifiedForm);
+        viewUser()
     };
 
     const handleSubmit = async (e) => {
@@ -41,15 +42,23 @@ const Login = () => {
                     setFormData(initialState);
                     navigate("/home");
                 }
-
             } catch (err) {
                 console.warn(err);
             }
         } else console.log("Invalid data");
     };
 
+    const viewUser = () => {
+        const formDataArr = formData.user.split(".")[0];
+        console.log(formData.user.split("."))
+        if (formDataArr.length > 0) setHasIntroduced(true);
+        else setHasIntroduced(false);
+    };
+
     return (
         <div className="container">
+            <ThemeChanger />
+            {hasIntroduced && <div>Hello {formData.user.split(".")[0]}</div>}
             <form className="content">
                 <FormField
                     className="unit"
@@ -65,7 +74,9 @@ const Login = () => {
                 />
             </form>
 
-            <button onClick={(e) => handleSubmit(e)}>Authenticate</button>
+            <button className="btn-login" onClick={(e) => handleSubmit(e)}>
+                Authenticate
+            </button>
         </div>
     );
 };

@@ -1,7 +1,26 @@
 .unit {
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
 }
 
-.unit input {
-    margin-left: 20px;
+
+.unit-input {
+    width: 100%;
+    min-width: 250px;
+    margin: 20px;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    box-shadow: 1px 1px 2px gray;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.unit-input:hover {
+    padding: 15px;
+}
+
+.unit-input:active {
+    border: 0.5px solid;
 }

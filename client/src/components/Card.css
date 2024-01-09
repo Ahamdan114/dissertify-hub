@@ -1,0 +1,17 @@
+.card {
+    border: transparent;
+    box-shadow: 0.5px 0.5px 2px gray;
+    margin-bottom: 10px;
+}
+
+.card-section {
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.card-section:hover {
+    box-shadow: 0 1px 2px gray;
+}

@@ -2,38 +2,61 @@
     display: flex;
 }
 
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.card {
-    padding: 10px 20px;
+.requests {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 10px 20px;
     gap: 20px;
-    justify-content: space-evenly;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 10px;
-    width: 500px;
     margin: 20px;
 }
 
-.card-header {
+.requests-header {
     display: flex;
     gap: 20px;
     cursor: pointer
 }
 
-.card-header button {
+.requests-header button {
     background-color: white;
     border: none
 }
 
-.text-env {
+.text-container {
     display: flex;
-    align-items: center;
-    margin-top: 25px;
-    margin-left: 40px;
+    justify-content: flex-start;
+}
+
+.text-env {
+    width: 100%;
+    min-width: 250px;
+    margin: 20px 0;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    box-shadow: 1px 1px 2px gray;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.text-env:hover {
+    padding: 15px;
+}
+
+.text-env:active {
+    border: 0.5px solid;
+}
+
+.show-requests {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.request-section {
+    display: flex;
+    flex-direction: column;
 }

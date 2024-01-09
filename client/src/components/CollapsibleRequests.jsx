@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./CollapsibleRequests.css";
 import Card from "./Card.jsx";
 import ButtonGroup from "./ButtonGroup.jsx";
+
 export const CollapsibleRequests = ({ userType, requests, title }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -32,9 +33,9 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
     const handleChange = (e) => setFeedback(e.target.value);
 
     return (
-        <div className="card">
+        <div className="requests">
             <div
-                className="card-header"
+                className="requests-header"
                 onClick={() => setIsExpanded((isExpanded) => !isExpanded)}
             >
                 <h3>{title}</h3>
@@ -43,27 +44,15 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
                 </button>
             </div>
             {isExpanded && (
-                <div className="flex">
+                <div className="show-requests">
                     {/* To modify here the upper limit of accepted category */}
                     {requests
                         .slice(0, requests.status === "accepted" ? requests.length : 3)
-                        .map(
-                            ({
-                                id,
-                                title,
-                                description,
-                                status,
-                                student: { name: studName },
-                                professor: { name: profName },
-                                transitions,
-                            }) => {
-                                const lastTransition = transitions.sort(
-                                    (a, b) =>
-                                        new Date(b.createdAt) - new Date(a.createdAt)
-                                )[0];
-
+                        .map(({id,title,description,status,student: { name: studName },professor: { name: profName }, transitions,}) => {
+                                const lastTransition = transitions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
                                 return (
-                                    <div key={id}>
+                                    <div className="request-section" key={id}>
+                                        <div>{(nameUserSelection === "student" ? profName : studName).split('.')[0]}</div>
                                         <Card
                                             title={title}
                                             description={description}
@@ -72,7 +61,7 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
                                         />
 
                                         {nameUserSelection && (
-                                            <>
+                                            <div>
                                                 <ButtonGroup
                                                     status={status}
                                                     id={id}
@@ -81,14 +70,14 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
                                                     handleUpload={handleUpload}
                                                 />
 
-                                                <div className="text-env">
-                                                    <input
+                                                <div className="text-container">
+                                                    <input className="text-env"
                                                         placeholder="Explain the reason..."
                                                         value={feedback}
                                                         onChange={handleChange}
                                                     />
                                                 </div>
-                                            </>
+                                            </div>
                                         )}
                                     </div>
                                 );

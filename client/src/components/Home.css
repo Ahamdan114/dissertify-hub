@@ -6,24 +6,48 @@
 
 .introduction {
     margin: 20px;
+    font-size: 30px;
 }
 
-.request_btn {
-    border: none;
-    padding: 30px 60px;
-    background: transparent;
-    box-shadow: 1px 1px 2px 1px gray;
-}
-
-.btn {
+/* .btn {
     padding: 10px 20px;
     border: none;
     font-weight: bold;
     cursor: pointer;
-}
+} */
 
 .buttons_request {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.dropdowns {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.introduction-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2.5fr 0.5fr;
+}
+
+@media (max-width: 1250px) {
+    .dropdowns {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 880px) {
+    .introduction {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .introduction {
+        font-size: 12px;
+    }
 }

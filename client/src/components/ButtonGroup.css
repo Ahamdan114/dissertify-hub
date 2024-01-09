@@ -1,0 +1,29 @@
+.buttons_request {
+    display: flex;
+    justify-content: space-around;
+}
+
+.general-btn {
+    padding: 10px 15px;
+    border: none;
+    box-shadow: 0.5px 0.5px 2px gray;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s padding ease-in-out;
+}
+
+.general-btn:hover {
+    padding: 20px 25px;
+}
+
+.btn-accept:hover {
+    background: green;
+}
+
+.btn-upload:hover {
+    background: orange;
+}
+
+.btn-reject:hover {
+    background: red;
+}

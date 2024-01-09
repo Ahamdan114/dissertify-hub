@@ -14,4 +14,3 @@ export const File = sequelize.define("file", {
         type: Sequelize.STRING,
     },
 });
- 

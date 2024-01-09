@@ -1,17 +1,17 @@
-import React from "react";
+import "./ButtonGroup.css"
 
-const ButtonGroup = ({status, id, handleAccept, handleReject, handleUpload}) => {
+const ButtonGroup = ({ status, id, handleAccept, handleReject, handleUpload }) => {
     return (
         <div className="buttons_request">
-            <button className="btn btn-accept" onClick={() => handleAccept(id)}>
+            <button className="general-btn btn-accept" onClick={() => handleAccept(id)}>
                 Accept
             </button>
             {status === "accepted" && (
-                <button className="btn btn-reject" onClick={() => handleUpload(id)}>
+                <button className="general-btn btn-upload" onClick={() => handleUpload(id)}>
                     Upload
                 </button>
             )}
-            <button className="btn btn-reject" onClick={() => handleReject(id)}>
+            <button className="general-btn btn-reject" onClick={() => handleReject(id)}>
                 Reject
             </button>
         </div>

@@ -13,8 +13,8 @@ const FormField = ({ fieldUser, onChange, formData }) => {
     
     return (
         <div className="unit">
-            <label>{capitalize(fieldUser)}:</label>
-            <input type="text" onChange={(e) => onChange(fieldUser, e.target.value)} value={formData[fieldUser] || ""}/>
+            <label className="unit-label">{capitalize(fieldUser)}</label>
+            <input className="unit-input" type="text" onChange={(e) => onChange(fieldUser, e.target.value)} value={formData[fieldUser] || ""}/>
         </div>
     );
 };

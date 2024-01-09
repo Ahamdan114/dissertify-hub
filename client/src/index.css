@@ -3,3 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
+.btn {
+    padding: 10px 20px;
+    box-shadow: 1px 1px 2px gray;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    background: transparent;
+    padding: 15px 25px;
+
+}

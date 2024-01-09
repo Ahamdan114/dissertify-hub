@@ -1,0 +1,8 @@
+.theme {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 35px;
+    border-radius: 100px;
+    border: 1px solid;
+}

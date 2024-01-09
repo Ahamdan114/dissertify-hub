@@ -2,14 +2,6 @@ import { useState } from "react";
 import FormField from "./FormField";
 import "./RequestForm.css";
 
-// {
-//     studentName: "",
-//     professorName: "",
-//     title: "",
-//     description: "",
-// }
-
-
 const RequestForm = ({callback = () => {}}) => {
     const [formData, setFormData] = useState({
         studentName: "madalin_baleanu.student.ase.ro",
@@ -58,7 +50,7 @@ const RequestForm = ({callback = () => {}}) => {
     };
 
     return (
-        <div>
+        <>
             <form className="form-request-container">
                 <FormField
                     className="unit"
@@ -88,8 +80,8 @@ const RequestForm = ({callback = () => {}}) => {
                 />
             </form>
 
-            <button onClick={(e) => handleSubmit(e)}>Authenticate</button>
-        </div>
+            <button className="btn" onClick={(e) => handleSubmit(e)}>Authenticate</button>
+        </>
     );
 };
 

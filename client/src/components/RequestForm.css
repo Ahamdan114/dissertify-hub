@@ -1,12 +1,16 @@
 .form-request-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 800px;
-    height: 200px;
-    background: transparent;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
     box-shadow: 0.5px 0.5px 2px 1px gray;
     border-radius: 10px;
-    margin: 20px;
+    margin: 20px 0;
+}
+
+@media (max-width: 780px) {
+    .form-request-container {
+        grid-template-columns: 1fr;
+        min-width: 400px;
+    }
 }
