@@ -7,8 +7,40 @@ import "./Authentication.css";
 const Authentication = () => {
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
+    const [isStudent, setIsStudent] = useState(false);
+
+    const [user, setUser] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const authenticationSubmit = (e) => {
         e.preventDefault();
+        const allFields = user !== "" || password !== "" || confirmPassword !== "";
+        const checkPassword = password === confirmPassword;
+        if (allFields && checkPassword) {
+            try {
+                const data = {
+                    user,
+                    password,
+                };
+
+                const response = fetch("/api/user", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+                if (response.ok) {
+                    const responseData = response.json();
+
+                    navigate("/home");
+                }
+            } catch (err) {
+                console.warn(err);
+            }
+        }
+
         // navigate("/home");
     };
     return (
@@ -19,32 +51,32 @@ const Authentication = () => {
                         <h1>Sign in</h1>
                     </div>
                     <div className="auth-form-body">
-                        <form onSubmit={(e) => authenticationSubmit(e)}>
+                        <form>
                             <div className="auth-form-field">
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email">User</label>
                                 <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Enter email..."
+                                    type="text"
+                                    placeholder="Enter user..."
+                                    value={user}
+                                    onChange={(e) => setUser(e.target.value)}
                                 />
                             </div>
                             <div className="auth-form-field">
                                 <label htmlFor="password">Password</label>
                                 <input
                                     type="password"
-                                    id="password"
-                                    name="password"
+                                    value={password}
                                     placeholder="Enter password..."
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                             <div className="auth-form-field">
                                 <label htmlFor="password">Confirm password</label>
                                 <input
                                     type={`${isVisible ? "text" : "password"}`}
-                                    id="password"
-                                    name="password"
+                                    value={confirmPassword}
                                     placeholder="Enter password..."
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 <button onClick={() => setIsVisible(!isVisible)}>
                                     Make it visible

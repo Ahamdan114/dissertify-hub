@@ -7,8 +7,8 @@ import ThemeChanger from "./ThemeChanger";
 const Login = () => {
     const navigate = useNavigate();
     const initialState = {
-        user: "augustin_cileanu.professor.ase.ro",
-        password: "12345",
+        user: "",
+        password: "",
     };
     const [formData, setFormData] = useState(initialState);
     const [hasIntroduced, setHasIntroduced] = useState(false);
@@ -18,13 +18,13 @@ const Login = () => {
             [fieldUser]: value,
         };
         setFormData(modifiedForm);
-        viewUser()
+        viewUser();
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const condition = formData.user !== "" && formData.password !== "";
-        if (condition) {
+        const checkData = formData.user !== "" && formData.password !== "";
+        if (checkData) {
             try {
                 const transferData = {
                     method: "POST",
@@ -50,7 +50,7 @@ const Login = () => {
 
     const viewUser = () => {
         const formDataArr = formData.user.split(".")[0];
-        console.log(formData.user.split("."))
+        console.log(formData.user.split("."));
         if (formDataArr.length > 0) setHasIntroduced(true);
         else setHasIntroduced(false);
     };
