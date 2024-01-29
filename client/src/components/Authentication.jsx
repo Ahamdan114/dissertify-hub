@@ -13,7 +13,7 @@ const Authentication = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const authenticationSubmit = (e) => {
+    const authenticationSubmit = async (e) => {
         e.preventDefault();
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
@@ -24,7 +24,7 @@ const Authentication = () => {
                     password,
                 };
 
-                const response = fetch("/api/user", {
+                const response = await fetch("/api/user", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Authentication = () => {
                     body: JSON.stringify(data),
                 });
                 if (response.ok) {
-                    const responseData = response.json();
+                    const responseData = await response.json();
 
                     navigate("/home");
                 }
