@@ -31,81 +31,82 @@ const Authentication = () => {
                     },
                     body: JSON.stringify(data),
                 });
+
                 if (response.ok) {
                     const responseData = await response.json();
+                    localStorage.setItem("user", JSON.stringify(responseData));
+
+                    setIsVisible(false);
+                    setIsStudent(false);
+
+                    setUser("");
+                    setPassword("");
+                    setConfirmPassword("");
 
                     navigate("/home");
                 }
             } catch (err) {
                 console.warn(err);
             }
+        } else {
+            console.log("Invalid data");
         }
-
-        // navigate("/home");
     };
     return (
-        <>
-            <div className="auth-container">
-                <div className="auth-form">
-                    <div className="auth-form-header">
-                        <h1>Sign in</h1>
+        <div className="auth-form">
+            <div className="auth-form-header">
+                <h1>Sign in {isStudent ? "Student" : "Professor"}</h1>
+            </div>
+            <div className="auth-form-body">
+                <form>
+                    <div className="auth-form-field">
+                        <label htmlFor="email">User</label>
+                        <input
+                            type="text"
+                            placeholder={`augustin_cileanu.${
+                                isStudent ? "Student" : "Professor"
+                            }.ase.ro`}
+                            value={user}
+                            onChange={(e) => setUser(e.target.value)}
+                        />
                     </div>
-                    <div className="auth-form-body">
-                        <form>
-                            <div className="auth-form-field">
-                                <label htmlFor="email">User</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter user..."
-                                    value={user}
-                                    onChange={(e) => setUser(e.target.value)}
-                                />
-                            </div>
-                            <div className="auth-form-field">
-                                <label htmlFor="password">Password</label>
-                                <input
-                                    type="password"
-                                    value={password}
-                                    placeholder="Enter password..."
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <div className="auth-form-field">
-                                <label htmlFor="password">Confirm password</label>
-                                <input
-                                    type={`${isVisible ? "text" : "password"}`}
-                                    value={confirmPassword}
-                                    placeholder="Enter password..."
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
-                                <button onClick={() => setIsVisible(!isVisible)}>
-                                    Make it visible
-                                </button>
-                            </div>
-                        </form>
-                        <div className="auth-form-button">
-                            <button
-                                type="submit"
-                                onClick={(e) => authenticationSubmit(e)}
-                            >
-                                Sign in
-                            </button>
-                        </div>
-                        <div className="auth-form-login">
-                            <p className="auth-form-login-description">
-                                Already have an account? Login
-                            </p>
-                            <button
-                                type="submit"
-                                onClick={(e) => authenticationSubmit(e)}
-                            >
-                                Login
-                            </button>
-                        </div>
+                    <div className="auth-form-field">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="Enter password..."
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
+                    <div className="auth-form-field">
+                        <label htmlFor="password">Confirm password</label>
+                        <input
+                            type={`${isVisible ? "text" : "password"}`}
+                            value={confirmPassword}
+                            placeholder="Enter password..."
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        <button onClick={() => setIsVisible(!isVisible)}>
+                            Make it visible
+                        </button>
+                    </div>
+                </form>
+                <div className="auth-form-button">
+                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                        Sign in {isStudent ? "Student" : "Professor"}
+                    </button>
+                </div>
+                <div className="auth-form-login">
+                    <p className="auth-form-login-description">
+                        Already have an account? Login
+                    </p>
+                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                        Login
+                    </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
