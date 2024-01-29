@@ -2,14 +2,21 @@ import { useState } from "react";
 import FormField from "./FormField";
 import "./RequestForm.css";
 
-const RequestForm = ({callback = () => {}}) => {
+const RequestForm = ({ callback = () => {} }) => {
     const [formData, setFormData] = useState({
-        studentName: "madalin_baleanu.student.ase.ro",
-        professorName: "augustin_cileanu.professor.ase.ro",
-        title: "Cerere disertatie",
-        description:
-            "Buna ziua! Doresc sa lucrez cu dumneavoastra la disertatie. Va multumesc!",
+        studentName: "",
+        professorName: "",
+        title: "",
+        description: "",
     });
+
+    // {
+    //     studentName: "madalin_baleanu.student.ase.ro",
+    //     professorName: "augustin_cileanu.professor.ase.ro",
+    //     title: "Cerere disertatie",
+    //     description:
+    //         "Buna ziua! Doresc sa lucrez cu dumneavoastra la disertatie. Va multumesc!",
+    // }
 
     const handleFormFieldChange = (fieldUser, value) => {
         const modifiedForm = {
@@ -41,7 +48,7 @@ const RequestForm = ({callback = () => {}}) => {
                         description: "",
                     });
 
-                    callback()
+                    callback();
                 }
             } catch (err) {
                 console.warn(err);
@@ -80,7 +87,9 @@ const RequestForm = ({callback = () => {}}) => {
                 />
             </form>
 
-            <button className="btn" onClick={(e) => handleSubmit(e)}>Authenticate</button>
+            <button className="btn" onClick={(e) => handleSubmit(e)}>
+                Authenticate
+            </button>
         </>
     );
 };
