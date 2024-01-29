@@ -1,5 +1,6 @@
 import { BrowserRouter as Browser, Routes, Route } from "react-router-dom";
 import { light, dark } from "./components/themes";
+import Authentication from "./components/Authentication";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Favicon from "./components/Favicon";
@@ -13,7 +14,8 @@ const App = () => {
             <Favicon />
             <Browser>
                 <Routes>
-                    <Route index element={<Login />} />
+                    <Route index element={<Authentication />}/>
+                    <Route index path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
                 </Routes>
             </Browser>
