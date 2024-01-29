@@ -87,7 +87,6 @@ app.get("/api/request/:userId", async (request, response, next) => {
 app.patch("/api/request/:requestId", async (request, response, next) => {
     const { requestId } = request.params;
     const { status, feedback } = request.body;
-    // console.log(">>>>>>>>>>>>>>>>>" + status)
     const patchedRequest = await Request.findOne({
         where: {
             id: requestId,
