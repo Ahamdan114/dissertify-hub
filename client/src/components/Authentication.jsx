@@ -92,18 +92,20 @@ const Authentication = () => {
                         </button>
                     </div>
                 </form>
-                <div className="auth-form-button">
-                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>
-                        Sign in {isStudent ? "Student" : "Professor"}
-                    </button>
-                </div>
-                <div className="auth-form-login">
-                    <p className="auth-form-login-description">
-                        Already have an account? Login
-                    </p>
-                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>
-                        Login
-                    </button>
+                <div className="form-description">
+                    <div className="auth-form-button">
+                        <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                            Sign in {isStudent ? "Student" : "Professor"}
+                        </button>
+                    </div>
+                    <div className="auth-form-login">
+                        <p className="auth-form-login-description">
+                            Already have an account?
+                        </p>
+                        <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                            Login
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
