@@ -52,6 +52,10 @@ const Authentication = () => {
             console.log("Invalid data");
         }
     };
+
+    const redirectLogin = () => {
+        navigate("/login");
+    }
     return (
         <div className="auth-form">
             <div className="auth-form-header">
@@ -102,7 +106,7 @@ const Authentication = () => {
                         <p className="auth-form-login-description">
                             Already have an account?
                         </p>
-                        <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                        <button type="submit" onClick={redirectLogin}>
                             Login
                         </button>
                     </div>
