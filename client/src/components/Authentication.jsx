@@ -57,7 +57,7 @@ const Authentication = () => {
         navigate("/login");
     };
     return (
-        <>
+        <div className="authentication-container">
             <form className="formContainer">
                 <div className="form-input">
                     <label>User</label>
@@ -83,15 +83,22 @@ const Authentication = () => {
                         onChange={(e) => setUser(e.target.value)}
                     />
                 </div>
-                <div>
-                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>Submit</button>
-                    <div>
+                <div className="authentication-options">
+                    <div className="authentication-submit">
+                        <button className="authentication-submit-btn" 
+                        onClick={(e) => authenticationSubmit(e)}>
+                            Submit
+                        </button>
+                    </div>
+                    <div className="authentication-redirection">
                         <p>Already have an account?</p>
-                        <button type="submit" onClick={redirectLogin}>Login</button>
+                        <button className="authentication-redirection-btn" onClick={redirectLogin}>
+                            Login
+                        </button>
                     </div>
                 </div>
             </form>
-        </>
+        </div>
     );
 };
 

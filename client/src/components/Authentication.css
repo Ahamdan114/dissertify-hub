@@ -1,8 +1,73 @@
-.formContainer {
+.authentication-container {
     height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px dashed red;
+}
+
+.formContainer {
+    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.formContainer > .form-input {
+    height: 50px;
+}
+
+.form-input > input {
+    width: 100%;
+    min-width: none;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.form-input > label {
+    width: 100%;
+    min-width: none;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.form-input {
+    width: 100%;
+    min-width: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.authentication-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin-top: 35px;
+}
+
+.authentication-redirection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.authentication-submit-btn, .authentication-redirection-btn {
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.authentication-redirection-btn {
+
+}
+
+.authentication-submit-btn {
+
+}
