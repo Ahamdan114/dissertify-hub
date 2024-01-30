@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px dashed red;
 }
 
 .formContainer {
@@ -34,8 +33,9 @@
     transition: all 0.5s ease-in-out;
 }
 
-.form-input > input:active, .form-input > input:hover {
-    box-shadow: inset 2px 2px 10px rgba(142, 142, 142, 0.5), 2px 2px 10px rgba(142, 142, 142, 0.8);
+.form-input > input:hover {
+    box-shadow: inset 2px 2px 10px rgba(142, 142, 142, 0.5),
+        2px 2px 10px rgba(142, 142, 142, 0.8);
 }
 
 .form-input > input:focus {
@@ -79,20 +79,35 @@
 }
 
 .authentication-redirection > p {
-    font-size: 20px;
+    font-size: 22px;
 }
 
-.authentication-submit-btn, .authentication-redirection-btn {
+.authentication-submit-btn,
+.authentication-redirection-btn {
+    background: none;
     border: none;
     padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     font-weight: 600;
-}
-.authentication-redirection-btn {
+    border-radius: 10px;
 
+    box-shadow: inset 2px 2px 10px rgba(142, 142, 142, 0.5);
+    transition: all 0.25s ease-in-out;
 }
 
 .authentication-submit-btn {
     width: 90%;
+}
+
+.authentication-submit-btn:hover {
+    padding: 20px;
+    box-shadow: inset 2px 2px 10px rgba(142, 142, 142, 0.5),
+        2px 2px 10px rgba(142, 142, 142, 0.8);
+}
+
+.authentication-redirection-btn:hover {
+    padding: 20px;
+    box-shadow: inset 2px 2px 10px rgba(142, 142, 142, 0.5),
+        2px 2px 10px rgba(142, 142, 142, 0.8);
 }
