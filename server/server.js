@@ -15,7 +15,7 @@ await sequelize.sync({ alter: true });
 // Trying to find in db if the user exists in order to see if create it.
 app.post("/api/user", async (request, response, next) => {
     const { user, password } = request.body;
-
+    console.log(user, password)
     const existingUser = await User.findOne({
         where: {
             name: user,

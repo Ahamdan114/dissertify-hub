@@ -15,12 +15,28 @@ const Authentication = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const checkUserPattern = (userStr) => {
+        const parts = userStr.split('.')
+        if(parts.length !== 4) return false
+        const [name, type, domain, extension] = parts
+        const patternType = isStudent ? 'student' : 'professor'
+
+        if(domain !== 'ase' || extension !== 'ro') return false
+        if(type !== patternType) return false
+        return true
+    }
+
     const authenticationSubmit = async (e) => {
         e.preventDefault();
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
-        console.log(allFields, checkPassword)
-        if (allFields && checkPassword) {
+        const checkUser = checkUserPattern(user);
+        console.log(allFields, checkPassword, checkUser)
+        
+
+        // augustin_cileanu.professor.ase.ro
+        // madalin_trandafir.student.ase.ro
+        if (allFields && checkPassword && checkUser) {
             try {
                 const data = {
                     user,
@@ -34,7 +50,7 @@ const Authentication = () => {
                     },
                     body: JSON.stringify(data),
                 });
-
+                console.log(response.status)
                 if (response.ok) {
                     const responseData = await response.json();
                     localStorage.setItem("user", JSON.stringify(responseData));
@@ -47,7 +63,25 @@ const Authentication = () => {
                     setPassword("");
                     setConfirmPassword("");
 
-                    navigate("/home");
+                    const transferData = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({...data}),
+                    };
+                    const res = await fetch("/api/login", transferData);
+    
+                    if (res.ok) {
+                        const data = await res.json();
+                        console.log(data.message);
+                        console.log(data.data);
+    
+                        localStorage.setItem("user", JSON.stringify(data));
+                        navigate("/home");
+                    }
+                    console.log("reached")
+
+
+                    // navigate("/home");
                 }
             } catch (err) {
                 console.warn(err);
@@ -60,6 +94,7 @@ const Authentication = () => {
     const redirectLogin = () => {
         navigate("/login");
     };
+
     return (
         <div className="authentication-container">
             <form className="formContainer">
