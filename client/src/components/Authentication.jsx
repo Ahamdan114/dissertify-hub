@@ -6,7 +6,9 @@ import "./Authentication.css";
 
 const Authentication = () => {
     const navigate = useNavigate();
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisiblePass, setIsVisiblePass] = useState(false);
+    const [isVisibleConfirmPass, setIsVisibleConfirmPass] = useState(false);
+
     const [isStudent, setIsStudent] = useState(false);
 
     const [user, setUser] = useState("");
@@ -17,6 +19,7 @@ const Authentication = () => {
         e.preventDefault();
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
+        console.log(allFields, checkPassword)
         if (allFields && checkPassword) {
             try {
                 const data = {
@@ -36,7 +39,8 @@ const Authentication = () => {
                     const responseData = await response.json();
                     localStorage.setItem("user", JSON.stringify(responseData));
 
-                    setIsVisible(false);
+                    setIsVisiblePass(false);
+                    setIsVisibleConfirmPass(false)
                     setIsStudent(false);
 
                     setUser("");
@@ -60,10 +64,18 @@ const Authentication = () => {
         <div className="authentication-container">
             <form className="formContainer">
                 <div className="form-input">
-                    <label>User</label>
+                    <label>{isStudent ? "Student" : "Professor"}</label>
+                    <input
+                        className="form-input-checkbox"
+                        id="checkbox_user"
+                        checked={isStudent}
+                        type="radio"
+                        onClick={() => setIsStudent(!isStudent)}
+                        onChange={() => { }}
+                    />
                     <input
                         type="text"
-                        placeholder="augustin_cileanu.professor/student.ase.ro"
+                        placeholder={`augustin_cileanu.${isStudent ? "student" : "professor"}.ase.ro`}
                         value={user}
                         onChange={(e) => setUser(e.target.value)}
                     />
@@ -71,7 +83,14 @@ const Authentication = () => {
                 <div className="form-input">
                     <label>Password</label>
                     <input
-                        type="text"
+                        className="form-input-checkbox"
+                        checked={isVisiblePass}
+                        type="radio"
+                        onClick={() => setIsVisiblePass(!isVisiblePass)}
+                        onChange={() => { }}
+                    />
+                    <input
+                        type={`${isVisiblePass ? "text" : "password"}`}
                         placeholder="Enter Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -81,12 +100,13 @@ const Authentication = () => {
                     <label>Confirm Password</label>
                     <input
                         className="form-input-checkbox"
-                        checked={isVisible}
+                        checked={isVisibleConfirmPass}
                         type="radio"
-                        onClick={() => setIsVisible(!isVisible)}
+                        onClick={() => setIsVisibleConfirmPass(!isVisibleConfirmPass)}
+                        onChange={() => { }}
                     />
                     <input
-                        type={`${isVisible ? "text" : "password"}`}
+                        type={`${isVisibleConfirmPass ? "text" : "password"}`}
                         placeholder="Confirm Password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
