@@ -3,27 +3,37 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Authentication.css";
+import FormField from "./FormField";
 
 const Authentication = () => {
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
     const [isStudent, setIsStudent] = useState(false);
-
-    const [user, setUser] = useState("");
-    const [password, setPassword] = useState("");
+    const [form, setForm] = useState({
+        user: "",
+        password: "",
+    });
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const onChange = (fieldUser, value) => {
+        const modifiedForm = {
+            ...form,
+            [fieldUser]: value,
+        };
+        setForm(modifiedForm);
+    };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
+        const { user, password } = form;
+
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
+
         if (allFields && checkPassword) {
             try {
-                const data = {
-                    user,
-                    password,
-                };
-
+                const data = { ...form.user, ...form.password };
+                console.log(data);
                 const response = await fetch("/api/user", {
                     method: "POST",
                     headers: {
@@ -38,11 +48,7 @@ const Authentication = () => {
 
                     setIsVisible(false);
                     setIsStudent(false);
-
-                    setUser("");
-                    setPassword("");
-                    setConfirmPassword("");
-
+                    setForm({ user: "", password: "" });
                     navigate("/home");
                 }
             } catch (err) {
@@ -55,9 +61,59 @@ const Authentication = () => {
 
     const redirectLogin = () => {
         navigate("/login");
-    }
+    };
     return (
-        <div className="auth-form">
+        <>
+            <div>
+                <form action="">
+                    <FormField
+                        className="unit"
+                        fieldUser={"User"}
+                        onChange={onChange}
+                        formData={form}
+                    />
+                    <FormField
+                        className="unit"
+                        fieldUser={"Password"}
+                        onChange={onChange}
+                        formData={form}
+                    />
+                    <div>
+                        <FormField
+                            className="unit"
+                            fieldUser={"Confirm Password"}
+                            onChange={onChange}
+                            formData={form}
+                        />
+                        <button onClick={() => setIsVisible(!isVisible)}></button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div className="form-description">
+                    <div className="auth-form-button">
+                        <button type="submit" onClick={(e) => authenticationSubmit(e)}>
+                            Sign in {isStudent ? "Student" : "Professor"}
+                        </button>
+                    </div>
+                    <div className="auth-form-login">
+                        <p className="auth-form-login-description">
+                            Already have an account?
+                        </p>
+                        <button type="submit" onClick={redirectLogin}>
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default Authentication;
+
+{
+    /* <div className="auth-form">
             <div className="auth-form-header">
                 <h1>Sign in {isStudent ? "Student" : "Professor"}</h1>
             </div>
@@ -112,8 +168,5 @@ const Authentication = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-export default Authentication;
+        </div> */
+}
