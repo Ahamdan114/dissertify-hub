@@ -17,12 +17,15 @@
 
 .formContainer > .form-input {
     height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    margin-bottom: 25px;
 }
 
 .form-input > input {
     width: 100%;
     min-width: none;
-    padding: 10px 20px;
     font-size: 20px;
 }
 
@@ -52,6 +55,8 @@
 
 .authentication-submit {
     width: 50%;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .authentication-redirection {
@@ -77,5 +82,5 @@
 }
 
 .authentication-submit-btn {
-
+    width: 90%;
 }
