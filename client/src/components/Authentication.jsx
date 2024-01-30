@@ -71,16 +71,16 @@ const Authentication = () => {
                     <label>Password</label>
                     <input
                         placeholder=""
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="form-input">
                     <label>Confirm Password</label>
                     <input
                         placeholder=""
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
                 <div className="authentication-options">
