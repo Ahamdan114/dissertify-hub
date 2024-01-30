@@ -46,15 +46,23 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
+    width: 100%;
     margin-top: 35px;
 }
 
+.authentication-submit {
+    width: 50%;
+}
+
 .authentication-redirection {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
     width: 50%;
+}
+
+.authentication-redirection > p {
+    font-size: 20px;
 }
 
 .authentication-submit-btn, .authentication-redirection-btn {
