@@ -55,15 +55,50 @@ const Authentication = () => {
 
     const redirectLogin = () => {
         navigate("/login");
-    }
-    return (<></>
+    };
+    return (
+        <>
+            <form className="formContainer">
+                <div className="form-input">
+                    <label>User</label>
+                    <input
+                        placeholder=""
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
+                    />
+                </div>
+                <div className="form-input">
+                    <label>Password</label>
+                    <input
+                        placeholder=""
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
+                    />
+                </div>
+                <div className="form-input">
+                    <label>Confirm Password</label>
+                    <input
+                        placeholder=""
+                        value={user}
+                        onChange={(e) => setUser(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <button type="submit" onClick={(e) => authenticationSubmit(e)}>Submit</button>
+                    <div>
+                        <p>Already have an account?</p>
+                        <button type="submit" onClick={redirectLogin}>Login</button>
+                    </div>
+                </div>
+            </form>
+        </>
     );
 };
 
 export default Authentication;
 
-
-{/* <div className="auth-form">
+{
+    /* <div className="auth-form">
             <div className="auth-form-header">
                 <h1>Sign in {isStudent ? "Student" : "Professor"}</h1>
             </div>
@@ -118,4 +153,5 @@ export default Authentication;
                     </div>
                 </div>
             </div>
-        </div> */}
+        </div> */
+}
