@@ -62,7 +62,8 @@ const Authentication = () => {
                 <div className="form-input">
                     <label>User</label>
                     <input
-                        placeholder=""
+                        type="text"
+                        placeholder="augustin_cileanu.professor/student.ase.ro"
                         value={user}
                         onChange={(e) => setUser(e.target.value)}
                     />
@@ -70,7 +71,8 @@ const Authentication = () => {
                 <div className="form-input">
                     <label>Password</label>
                     <input
-                        placeholder=""
+                        type="text"
+                        placeholder="Enter Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -78,21 +80,33 @@ const Authentication = () => {
                 <div className="form-input">
                     <label>Confirm Password</label>
                     <input
-                        placeholder=""
+                        className="form-input-checkbox"
+                        checked={isVisible}
+                        type="radio"
+                        onClick={() => setIsVisible(!isVisible)}
+                    />
+                    <input
+                        type={`${isVisible ? "text" : "password"}`}
+                        placeholder="Confirm Password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
                 <div className="authentication-options">
                     <div className="authentication-submit">
-                        <button className="authentication-submit-btn" 
-                        onClick={(e) => authenticationSubmit(e)}>
+                        <button
+                            className="authentication-submit-btn"
+                            onClick={(e) => authenticationSubmit(e)}
+                        >
                             Submit
                         </button>
                     </div>
                     <div className="authentication-redirection">
                         <p>Already have an account?</p>
-                        <button className="authentication-redirection-btn" onClick={redirectLogin}>
+                        <button
+                            className="authentication-redirection-btn"
+                            onClick={redirectLogin}
+                        >
                             Login
                         </button>
                     </div>
