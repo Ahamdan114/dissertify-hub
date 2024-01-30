@@ -3,37 +3,27 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Authentication.css";
-import FormField from "./FormField";
 
 const Authentication = () => {
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
     const [isStudent, setIsStudent] = useState(false);
-    const [form, setForm] = useState({
-        user: "",
-        password: "",
-    });
-    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const onChange = (fieldUser, value) => {
-        const modifiedForm = {
-            ...form,
-            [fieldUser]: value,
-        };
-        setForm(modifiedForm);
-    };
+    const [user, setUser] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
-        const { user, password } = form;
-
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
-
         if (allFields && checkPassword) {
             try {
-                const data = { ...form.user, ...form.password };
-                console.log(data);
+                const data = {
+                    user,
+                    password,
+                };
+
                 const response = await fetch("/api/user", {
                     method: "POST",
                     headers: {
@@ -48,7 +38,11 @@ const Authentication = () => {
 
                     setIsVisible(false);
                     setIsStudent(false);
-                    setForm({ user: "", password: "" });
+
+                    setUser("");
+                    setPassword("");
+                    setConfirmPassword("");
+
                     navigate("/home");
                 }
             } catch (err) {
@@ -61,59 +55,15 @@ const Authentication = () => {
 
     const redirectLogin = () => {
         navigate("/login");
-    };
-    return (
-        <div className="auth-form">
-            <div className="">
-                <form>
-                    <FormField
-                        className="auth-form-field"
-                        fieldUser={"User"}
-                        onChange={onChange}
-                        formData={form}
-                    />
-                    <FormField
-                        className="auth-form-field "
-                        fieldUser={"Password"}
-                        onChange={onChange}
-                        formData={form}
-                    />
-                    <div>
-                        <FormField
-                            className="auth-form-field "
-                            fieldUser={"Confirm Password"}
-                            onChange={onChange}
-                            formData={form}
-                        />
-                        <button onClick={() => setIsVisible(!isVisible)}></button>
-                    </div>
-                </form>
-            </div>
-            <div>
-                <div className="form-description">
-                    <div className="auth-form-button">
-                        <button type="submit" onClick={(e) => authenticationSubmit(e)}>
-                            Sign in {isStudent ? "Student" : "Professor"}
-                        </button>
-                    </div>
-                    <div className="auth-form-login">
-                        <p className="auth-form-login-description">
-                            Already have an account?
-                        </p>
-                        <button type="submit" onClick={redirectLogin}>
-                            Login
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    }
+    return (<></>
     );
 };
 
 export default Authentication;
 
-{
-    /* <div className="auth-form">
+
+{/* <div className="auth-form">
             <div className="auth-form-header">
                 <h1>Sign in {isStudent ? "Student" : "Professor"}</h1>
             </div>
@@ -168,5 +118,4 @@ export default Authentication;
                     </div>
                 </div>
             </div>
-        </div> */
-}
+        </div> */}
