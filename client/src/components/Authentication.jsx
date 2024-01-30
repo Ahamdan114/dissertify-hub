@@ -63,24 +63,24 @@ const Authentication = () => {
         navigate("/login");
     };
     return (
-        <>
-            <div>
-                <form action="">
+        <div className="auth-form">
+            <div className="">
+                <form>
                     <FormField
-                        className="unit"
+                        className="auth-form-field"
                         fieldUser={"User"}
                         onChange={onChange}
                         formData={form}
                     />
                     <FormField
-                        className="unit"
+                        className="auth-form-field "
                         fieldUser={"Password"}
                         onChange={onChange}
                         formData={form}
                     />
                     <div>
                         <FormField
-                            className="unit"
+                            className="auth-form-field "
                             fieldUser={"Confirm Password"}
                             onChange={onChange}
                             formData={form}
@@ -106,7 +106,7 @@ const Authentication = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
