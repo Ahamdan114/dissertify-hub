@@ -16,23 +16,22 @@ const Authentication = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const checkUserPattern = (userStr) => {
-        const parts = userStr.split('.')
-        if(parts.length !== 4) return false
-        const [name, type, domain, extension] = parts
-        const patternType = isStudent ? 'student' : 'professor'
+        const parts = userStr.split(".");
+        if (parts.length !== 4) return false;
+        const [name, type, domain, extension] = parts;
+        const patternType = isStudent ? "student" : "professor";
 
-        if(domain !== 'ase' || extension !== 'ro') return false
-        if(type !== patternType) return false
-        return true
-    }
+        if (domain !== "ase" || extension !== "ro") return false;
+        if (type !== patternType) return false;
+        return true;
+    };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
-        console.log(allFields, checkPassword, checkUser)
-        
+        console.log(allFields, checkPassword, checkUser);
 
         // augustin_cileanu.professor.ase.ro
         // madalin_trandafir.student.ase.ro
@@ -50,13 +49,13 @@ const Authentication = () => {
                     },
                     body: JSON.stringify(data),
                 });
-                console.log(response.status)
+                console.log(response.status);
                 if (response.ok) {
                     const responseData = await response.json();
                     localStorage.setItem("user", JSON.stringify(responseData));
 
                     setIsVisiblePass(false);
-                    setIsVisibleConfirmPass(false)
+                    setIsVisibleConfirmPass(false);
                     setIsStudent(false);
 
                     setUser("");
@@ -66,20 +65,19 @@ const Authentication = () => {
                     const transferData = {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({...data}),
+                        body: JSON.stringify({ ...data }),
                     };
                     const res = await fetch("/api/login", transferData);
-    
+
                     if (res.ok) {
                         const data = await res.json();
                         console.log(data.message);
                         console.log(data.data);
-    
+
                         localStorage.setItem("user", JSON.stringify(data));
                         navigate("/home");
                     }
-                    console.log("reached")
-
+                    console.log("reached");
 
                     // navigate("/home");
                 }
@@ -106,11 +104,13 @@ const Authentication = () => {
                         checked={isStudent}
                         type="radio"
                         onClick={() => setIsStudent(!isStudent)}
-                        onChange={() => { }}
+                        onChange={() => {}}
                     />
                     <input
                         type="text"
-                        placeholder={`augustin_cileanu.${isStudent ? "student" : "professor"}.ase.ro`}
+                        placeholder={`augustin_cileanu.${
+                            isStudent ? "student" : "professor"
+                        }.ase.ro`}
                         value={user}
                         onChange={(e) => setUser(e.target.value)}
                     />
@@ -122,7 +122,7 @@ const Authentication = () => {
                         checked={isVisiblePass}
                         type="radio"
                         onClick={() => setIsVisiblePass(!isVisiblePass)}
-                        onChange={() => { }}
+                        onChange={() => {}}
                     />
                     <input
                         type={`${isVisiblePass ? "text" : "password"}`}
@@ -138,7 +138,7 @@ const Authentication = () => {
                         checked={isVisibleConfirmPass}
                         type="radio"
                         onClick={() => setIsVisibleConfirmPass(!isVisibleConfirmPass)}
-                        onChange={() => { }}
+                        onChange={() => {}}
                     />
                     <input
                         type={`${isVisibleConfirmPass ? "text" : "password"}`}

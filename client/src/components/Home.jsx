@@ -8,7 +8,7 @@ import ThemeChanger from "./ThemeChanger";
 const Home = () => {
     
     const userData = JSON.parse(localStorage.getItem("user")).data;
-    console.log(userData)
+    // console.log(userData)
     const {id: userId, name: userName, type: userType} = userData
     const [requests, setRequests] = useState([])
     const isProfessor = userType === 'student'
