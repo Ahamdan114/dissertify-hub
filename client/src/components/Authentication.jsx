@@ -29,6 +29,16 @@ const Authentication = () => {
         return true;
     };
 
+    const resetConfigurations = () => {
+        setIsVisiblePass(false);
+        setIsVisibleConfirmPass(false);
+        setIsStudent(false);
+
+        setUser("");
+        setPassword("");
+        setConfirmPassword("");
+    };
+
     const authenticateUser = async (e) => {
         e.preventDefault();
 
@@ -50,39 +60,31 @@ const Authentication = () => {
                     },
                     body: JSON.stringify(data),
                 });
-                console.log("Step 1")
+                console.log("Step 1");
                 if (response.ok) {
                     const responseData = await response.json();
                     localStorage.setItem("user", JSON.stringify(responseData));
-
-                    setIsVisiblePass(false);
-                    setIsVisibleConfirmPass(false);
-                    setIsStudent(false);
-
-                    setUser("");
-                    setPassword("");
-                    setConfirmPassword("");
-                    console.log("Step 2A")
-
+                    console.log("Step 2A");
+                    resetConfigurations();
                     return response.ok, data;
                 } else console.log("Invalid data");
             } catch (err) {
                 console.warn(err);
             }
         }
-        console.log("Step 2B")
+        console.log("Step 2B");
 
         return false;
     };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
-        console.log("Step 3")
+        console.log("Step 3");
 
         const { condition, data } = await authenticateUser(e);
-        console.log("Step 4", condition, data)
+        console.log("Step 4", condition, data);
 
-        console.log(data)
+        console.log(data);
         if (condition) {
             try {
                 const transferData = {
@@ -90,16 +92,16 @@ const Authentication = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ ...data }),
                 };
-                console.log("Step 5")
+                console.log("Step 5");
 
                 const res = await fetch("/api/login", transferData);
-                console.log("Step 6")
+                console.log("Step 6");
 
                 if (res.ok) {
                     const data = await res.json();
                     console.log(data.message);
                     console.log(data.data);
-                    console.log("Step 7")
+                    console.log("Step 7");
 
                     localStorage.setItem("user", JSON.stringify(data));
                     navigate("/home");
