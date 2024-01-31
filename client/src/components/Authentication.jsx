@@ -6,9 +6,9 @@ import "./Authentication.css";
 
 const Authentication = () => {
     const navigate = useNavigate();
+
     const [isVisiblePass, setIsVisiblePass] = useState(false);
     const [isVisibleConfirmPass, setIsVisibleConfirmPass] = useState(false);
-
     const [isStudent, setIsStudent] = useState(false);
 
     const [user, setUser] = useState("");
@@ -58,23 +58,18 @@ const Authentication = () => {
                 });
 
                 const responseData = await response.json();
-
-                console.log("Step 2");
-                console.log("Step 3A", responseData);
-
                 resetConfigurations();
-                return !!(Object.keys(responseData).length);
+
+                return !!Object.keys(responseData).length;
             } catch (err) {
                 console.warn(err);
             }
-        } else return false;
+        }
     };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
-        console.log("Step 1");
         const dataValidation = await authenticateUser(e);
-        console.log("Step 4", dataValidation);
         if (dataValidation) {
             const data = { user, password };
             try {
@@ -83,12 +78,12 @@ const Authentication = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 };
+
                 const response = await fetch("/api/login", transferData);
                 const responseData = await response.json();
-                console.log(responseData.message, responseData.data, "Step 7");
+
                 localStorage.setItem("user", JSON.stringify(responseData));
                 navigate("/home");
-                console.log("reached");
             } catch (err) {
                 console.warn(err);
             }
