@@ -16,6 +16,9 @@ const Authentication = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const checkUserPattern = (userStr) => {
+        // pattern professor: augustin_cileanu.professor.ase.ro
+        // pattern student: madalin_trandafir.student.ase.ro
+
         const parts = userStr.split(".");
         if (parts.length !== 4) return false;
         const [name, type, domain, extension] = parts;
@@ -26,15 +29,13 @@ const Authentication = () => {
         return true;
     };
 
-    const authenticationSubmit = async (e) => {
+    const authenticateUser = async (e) => {
         e.preventDefault();
+
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
-        console.log(allFields, checkPassword, checkUser);
 
-        // augustin_cileanu.professor.ase.ro
-        // madalin_trandafir.student.ase.ro
         if (allFields && checkPassword && checkUser) {
             try {
                 const data = {
@@ -49,7 +50,7 @@ const Authentication = () => {
                     },
                     body: JSON.stringify(data),
                 });
-                console.log(response.status);
+                console.log("Step 1")
                 if (response.ok) {
                     const responseData = await response.json();
                     localStorage.setItem("user", JSON.stringify(responseData));
@@ -61,31 +62,52 @@ const Authentication = () => {
                     setUser("");
                     setPassword("");
                     setConfirmPassword("");
+                    console.log("Step 2A")
 
-                    const transferData = {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ ...data }),
-                    };
-                    const res = await fetch("/api/login", transferData);
-
-                    if (res.ok) {
-                        const data = await res.json();
-                        console.log(data.message);
-                        console.log(data.data);
-
-                        localStorage.setItem("user", JSON.stringify(data));
-                        navigate("/home");
-                    }
-                    console.log("reached");
-
-                    // navigate("/home");
-                }
+                    return response.ok, data;
+                } else console.log("Invalid data");
             } catch (err) {
                 console.warn(err);
             }
-        } else {
-            console.log("Invalid data");
+        }
+        console.log("Step 2B")
+
+        return false;
+    };
+
+    const authenticationSubmit = async (e) => {
+        e.preventDefault();
+        console.log("Step 3")
+
+        const { condition, data } = await authenticateUser(e);
+        console.log("Step 4", condition, data)
+
+        console.log(data)
+        if (condition) {
+            try {
+                const transferData = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ...data }),
+                };
+                console.log("Step 5")
+
+                const res = await fetch("/api/login", transferData);
+                console.log("Step 6")
+
+                if (res.ok) {
+                    const data = await res.json();
+                    console.log(data.message);
+                    console.log(data.data);
+                    console.log("Step 7")
+
+                    localStorage.setItem("user", JSON.stringify(data));
+                    navigate("/home");
+                }
+                console.log("reached");
+            } catch (err) {
+                console.warn(err);
+            }
         }
     };
 
