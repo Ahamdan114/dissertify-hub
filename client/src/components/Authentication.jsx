@@ -24,8 +24,7 @@ const Authentication = () => {
         const [name, type, domain, extension] = parts;
         const patternType = isStudent ? "student" : "professor";
 
-        if (domain !== "ase" || extension !== "ro") return false;
-        if (type !== patternType) return false;
+        if (domain !== "ase" || extension !== "ro" || type !== patternType) return false;
         return true;
     };
 
@@ -46,48 +45,46 @@ const Authentication = () => {
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
         const checkAll = allFields && checkPassword && checkUser;
+        if (!checkAll) return; // "Invalid data"
+        try {
+            const data = { user, password };
+            const response = await fetch("/api/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
 
-        if (checkAll) {
-            try {
-                const data = { user, password };
+            const responseData = await response.json();
+            resetConfigurations();
 
-                const response = await fetch("/api/user", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                });
-
-                const responseData = await response.json();
-                resetConfigurations();
-
-                return !!Object.keys(responseData).length;
-            } catch (err) {
-                console.warn(err);
-            }
+            return !!Object.keys(responseData).length;
+        } catch (err) {
+            console.warn(err);
         }
     };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
+
         const dataValidation = await authenticateUser(e);
-        if (dataValidation) {
-            const data = { user, password };
-            try {
-                const transferData = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                };
+        if (!dataValidation) return; // "Invalid data"
+        
+        const data = { user, password };
+        const transferData = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        };
 
-                const response = await fetch("/api/login", transferData);
-                const responseData = await response.json();
+        try {
+            const response = await fetch("/api/login", transferData);
+            const responseData = await response.json();
 
-                localStorage.setItem("user", JSON.stringify(responseData));
-                navigate("/home");
-            } catch (err) {
-                console.warn(err);
-            }
-        } else console.log("Invalid data");
+            localStorage.setItem("user", JSON.stringify(responseData));
+            navigate("/home");
+        } catch (err) {
+            console.warn(err);
+        }
     };
 
     const redirectLogin = () => {
