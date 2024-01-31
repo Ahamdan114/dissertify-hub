@@ -45,72 +45,54 @@ const Authentication = () => {
         const allFields = user !== "" || password !== "" || confirmPassword !== "";
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
+        const checkAll = allFields && checkPassword && checkUser;
 
-        if (allFields && checkPassword && checkUser) {
+        if (checkAll) {
             try {
-                const data = {
-                    user,
-                    password,
-                };
+                const data = { user, password };
 
                 const response = await fetch("/api/user", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 });
-                console.log("Step 1");
-                if (response.ok) {
-                    const responseData = await response.json();
-                    localStorage.setItem("user", JSON.stringify(responseData));
-                    console.log("Step 2A");
-                    resetConfigurations();
-                    return response.ok, data;
-                } else console.log("Invalid data");
+
+                const responseData = await response.json();
+
+                console.log("Step 2");
+                console.log("Step 3A", responseData);
+
+                resetConfigurations();
+                return !!(Object.keys(responseData).length);
             } catch (err) {
                 console.warn(err);
             }
-        }
-        console.log("Step 2B");
-
-        return false;
+        } else return false;
     };
 
     const authenticationSubmit = async (e) => {
         e.preventDefault();
-        console.log("Step 3");
-
-        const { condition, data } = await authenticateUser(e);
-        console.log("Step 4", condition, data);
-
-        console.log(data);
-        if (condition) {
+        console.log("Step 1");
+        const dataValidation = await authenticateUser(e);
+        console.log("Step 4", dataValidation);
+        if (dataValidation) {
+            const data = { user, password };
             try {
                 const transferData = {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ ...data }),
+                    body: JSON.stringify(data),
                 };
-                console.log("Step 5");
-
-                const res = await fetch("/api/login", transferData);
-                console.log("Step 6");
-
-                if (res.ok) {
-                    const data = await res.json();
-                    console.log(data.message);
-                    console.log(data.data);
-                    console.log("Step 7");
-
-                    localStorage.setItem("user", JSON.stringify(data));
-                    navigate("/home");
-                }
+                const response = await fetch("/api/login", transferData);
+                const responseData = await response.json();
+                console.log(responseData.message, responseData.data, "Step 7");
+                localStorage.setItem("user", JSON.stringify(responseData));
+                navigate("/home");
                 console.log("reached");
             } catch (err) {
                 console.warn(err);
             }
-        }
+        } else console.log("Invalid data");
     };
 
     const redirectLogin = () => {
