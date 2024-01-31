@@ -63,7 +63,7 @@ const Authentication = () => {
         }
     };
 
-    const authenticationSubmit = async (e) => {
+    const authenticateSubmit = async (e) => {
         e.preventDefault();
 
         const dataValidation = await authenticateUser(e);
@@ -92,8 +92,9 @@ const Authentication = () => {
     };
 
     return (
-        <div className="authentication-container">
+        <div className="auth-container">
             <form className="formContainer">
+
                 <div className="form-input">
                     <label>{isStudent ? "Student" : "Professor"}</label>
                     <input
@@ -113,6 +114,7 @@ const Authentication = () => {
                         onChange={(e) => setUser(e.target.value)}
                     />
                 </div>
+
                 <div className="form-input">
                     <label>Password</label>
                     <input
@@ -129,6 +131,7 @@ const Authentication = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+
                 <div className="form-input">
                     <label>Confirm Password</label>
                     <input
@@ -145,19 +148,20 @@ const Authentication = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
-                <div className="authentication-options">
-                    <div className="authentication-submit">
+
+                <div className="auth-options">
+                    <div className="auth-submit">
                         <button
-                            className="authentication-submit-btn"
-                            onClick={(e) => authenticationSubmit(e)}
+                            className="auth-submit-btn"
+                            onClick={(e) => authenticateSubmit(e)}
                         >
                             Submit
                         </button>
                     </div>
-                    <div className="authentication-redirection">
+                    <div className="auth-redirection">
                         <p>Already have an account?</p>
                         <button
-                            className="authentication-redirection-btn"
+                            className="auth-redirection-btn"
                             onClick={redirectLogin}
                         >
                             Login
