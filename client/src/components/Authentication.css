@@ -59,6 +59,11 @@
     outline: none;
 }
 
+.form-input > input[type="radio"] {
+    margin-bottom: 10px;
+    accent-color: rgb(228, 96, 2);
+}
+
 .form-input-checkbox {
     width: 20px;
     height: 20px;
@@ -132,6 +137,8 @@
     box-shadow: var(--box-shadow-dark);
 }
 
+
+
 @media (max-width: 730px) {
     .form-input {
         display: grid;
@@ -141,7 +148,7 @@
 
     .form-input > label {
         grid-column: span 3;
-        
+
         width: 100%;
         margin-bottom: 10px;
         padding: 0;
