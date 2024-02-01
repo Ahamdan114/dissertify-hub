@@ -32,7 +32,14 @@
     margin-bottom: 25%;
 }
 
-/*.formContainer >*/
+.from-container-title {
+    font-size: 40px;
+}
+
+.from-container-description {
+    font-size: 20px;
+}
+
 .form-input {
     height: 50px;
     display: flex;

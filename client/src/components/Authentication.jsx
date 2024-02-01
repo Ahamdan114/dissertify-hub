@@ -96,7 +96,7 @@ const Authentication = () => {
             <form className="formContainer">
                 <div className="from-container-introduction">
                     <h1 className="from-container-title">Welcome to Dissertify-Hub</h1>
-                    {/* <p>The place where a dissertation becomes everytime a possibility</p> */}
+                    <p className="from-container-description">The place where a dissertation becomes everytime a possibility</p>
                 </div>
 
                 <div className="form-input">
