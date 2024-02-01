@@ -186,7 +186,25 @@
     }
 }
 
+@media (max-width: 600px) {
+    .formContainer {
+        width: 80%;
+    }
 
+    .form-input > label {
+        font-size: 17px;
+    }
+
+    .form-input > input[type="text"],
+    .form-input > input[type="password"] {
+        font-size: 17px;
+    }
+
+    .auth-submit-btn,
+    .auth-redirection-btn {
+        font-size: 17px;
+    }
+}
 
 @media (max-width: 400px) {
     .auth-redirection > p {
