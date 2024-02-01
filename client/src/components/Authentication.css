@@ -157,8 +157,7 @@
         font-size: 20px;
     }
 
-    .form-input > input[type="text"],
-    .form-input > input[type="radio"] {
+    .form-input > input[type="text"] {
         width: 100%;
         margin-bottom: 10px;
     }
