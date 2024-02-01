@@ -130,3 +130,36 @@
     padding: 20px;
     box-shadow: var(--box-shadow-dark);
 }
+
+
+
+@media (max-width: 730px) {
+
+    .auth-options {
+        display: grid;
+        grid-template-columns: 1fr;
+        place-content: center;
+        place-items: center;
+    }
+
+    .auth-options > * {
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        width: 100%;
+
+        margin: 20px 0;
+    }
+
+    .auth-submit-btn,
+    .auth-redirection-btn {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-redirection > p {
+        font-size: 17px;
+    }
+}
