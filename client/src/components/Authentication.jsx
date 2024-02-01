@@ -107,7 +107,7 @@ const Authentication = () => {
                     />
                     <input
                         type="text"
-                        placeholder={`augustin_cileanu.${
+                        placeholder={`andrei.${
                             isStudent ? "student" : "professor"
                         }.ase.ro`}
                         value={user}

@@ -156,6 +156,11 @@
         margin-bottom: 10px;
     }
 
+    .form-input > input[type="text"]::placeholder,
+    .form-input > input[type="password"]::placeholder {
+        font-size: 20px;
+    }
+
     .form-input > input[type="password"] {
         width: 100%;
         margin-bottom: 10px;
@@ -180,6 +185,8 @@
         width: 100%;
     }
 }
+
+
 
 @media (max-width: 400px) {
     .auth-redirection > p {
