@@ -200,6 +200,11 @@
         font-size: 17px;
     }
 
+    .form-input > input[type="text"]::placeholder,
+    .form-input > input[type="password"]::placeholder {
+        font-size: 17px;
+    }
+
     .auth-submit-btn,
     .auth-redirection-btn {
         font-size: 17px;
