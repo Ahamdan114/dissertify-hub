@@ -154,7 +154,15 @@
     box-shadow: var(--box-shadow-dark);
 }
 
+@media (max-width: 850px) {
+    .from-container-title {
+        font-size: 30px;
+    }
 
+    .from-container-description {
+        font-size: 15px;
+    }
+}
 
 @media (max-width: 730px) {
     .form-input {
@@ -214,6 +222,11 @@
         width: 80%;
     }
 
+    .from-container-title,
+    .from-container-description {
+        margin-bottom: 10px;
+    }
+
     .form-input > label {
         font-size: 17px;
     }
@@ -230,6 +243,16 @@
 
     .auth-submit-btn,
     .auth-redirection-btn {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 500px) {
+    .from-container-title {
+        font-size: 23px;
+    }
+
+    .from-container-description {
         font-size: 17px;
     }
 }
