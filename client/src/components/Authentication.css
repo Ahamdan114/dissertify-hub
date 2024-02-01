@@ -22,6 +22,16 @@
     align-items: center;
 }
 
+.from-container-introduction {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25%;
+}
+
 /*.formContainer >*/
 .form-input {
     height: 50px;

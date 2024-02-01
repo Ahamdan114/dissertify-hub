@@ -68,7 +68,7 @@ const Authentication = () => {
 
         const dataValidation = await authenticateUser(e);
         if (!dataValidation) return; // "Invalid data"
-        
+
         const data = { user, password };
         const transferData = {
             method: "POST",
@@ -94,6 +94,10 @@ const Authentication = () => {
     return (
         <div className="auth-container">
             <form className="formContainer">
+                <div className="from-container-introduction">
+                    <h1 className="from-container-title">Welcome to Dissertify-Hub</h1>
+                    {/* <p>The place where a dissertation becomes everytime a possibility</p> */}
+                </div>
 
                 <div className="form-input">
                     <label>{isStudent ? "Student" : "Professor"}</label>
@@ -160,10 +164,7 @@ const Authentication = () => {
                     </div>
                     <div className="auth-redirection">
                         <p>Already have an account?</p>
-                        <button
-                            className="auth-redirection-btn"
-                            onClick={redirectLogin}
-                        >
+                        <button className="auth-redirection-btn" onClick={redirectLogin}>
                             Login
                         </button>
                     </div>
