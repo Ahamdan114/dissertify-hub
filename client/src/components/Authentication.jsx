@@ -77,7 +77,9 @@ const Authentication = () => {
         };
 
         try {
-            const response = await fetch("/api/login", transferData);
+            const response = await fetch("/api/login", transferData).catch((err) =>
+                console.warn(err)
+            );
             const responseData = await response.json();
 
             localStorage.setItem("user", JSON.stringify(responseData));
@@ -96,7 +98,9 @@ const Authentication = () => {
             <form className="formContainer">
                 <div className="from-container-introduction">
                     <h1 className="from-container-title">Welcome to Dissertify-Hub</h1>
-                    <p className="from-container-description">The place where a dissertation becomes everytime a possibility.</p>
+                    <p className="from-container-description">
+                        The place where a dissertation becomes everytime a possibility.
+                    </p>
                 </div>
 
                 <div className="form-input">

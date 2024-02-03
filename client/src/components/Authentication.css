@@ -73,7 +73,6 @@
 
 .form-input > input[type="text"]:focus,
 .form-input > input[type="password"]:focus {
-    
     outline: none;
 }
 

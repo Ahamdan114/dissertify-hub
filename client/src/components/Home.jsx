@@ -25,6 +25,7 @@ const Home = () => {
             }
         }))
         .then(setRequests)
+        .catch(err => console.error(err));
     
     useEffect(() => {
         fetchRequests()

@@ -10,14 +10,6 @@ const RequestForm = ({ callback = () => {} }) => {
         description: "",
     });
 
-    // {
-    //     studentName: "madalin_baleanu.student.ase.ro",
-    //     professorName: "augustin_cileanu.professor.ase.ro",
-    //     title: "Cerere disertatie",
-    //     description:
-    //         "Buna ziua! Doresc sa lucrez cu dumneavoastra la disertatie. Va multumesc!",
-    // }
-
     const handleFormFieldChange = (fieldUser, value) => {
         const modifiedForm = {
             ...formData,
@@ -36,7 +28,8 @@ const RequestForm = ({ callback = () => {} }) => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 };
-                const response = await fetch("/api/request", transferData);
+                const response = await fetch("/api/request", transferData)
+                                        .catch((err) => console.warn(err));
 
                 if (response.ok) {
                     const data = await response.json();

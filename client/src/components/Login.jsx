@@ -31,7 +31,9 @@ const Login = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 };
-                const response = await fetch("/api/login", transferData);
+                const response = await fetch("/api/login", transferData).catch((err) =>
+                    console.warn(err)
+                );
 
                 if (response.ok) {
                     const data = await response.json();

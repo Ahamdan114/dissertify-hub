@@ -14,7 +14,7 @@ export const CollapsibleRequests = ({ userType, requests, title }) => {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status, feedback }),
-        });
+        }).catch((err) => console.error(err));
         setFeedback("");
     };
 
