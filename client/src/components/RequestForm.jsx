@@ -28,8 +28,9 @@ const RequestForm = ({ callback = () => {} }) => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 };
-                const response = await fetch("/api/request", transferData)
-                                        .catch((err) => console.warn(err));
+                const response = await fetch("/api/request", transferData).catch((err) =>
+                    console.warn(err)
+                );
 
                 if (response.ok) {
                     const data = await response.json();
