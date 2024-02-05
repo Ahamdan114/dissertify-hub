@@ -23,7 +23,7 @@ const Authentication = () => {
         if (parts.length !== 4) return false;
         const [name, type, domain, extension] = parts;
         const patternType = isStudent ? "student" : "professor";
-
+        console.log(name, type, domain, extension);
         if (domain !== "ase" || extension !== "ro" || type !== patternType) return false;
         return true;
     };
@@ -45,7 +45,8 @@ const Authentication = () => {
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
         const checkAll = allFields && checkPassword && checkUser;
-        if (!checkAll) return; // "Invalid data"
+        console.log(checkAll);
+        if (!checkAll) return; // "Invalid data -> Throw error with error boundaries"
         try {
             const data = { user, password };
             const response = await fetch("/api/user", {
@@ -67,7 +68,7 @@ const Authentication = () => {
         e.preventDefault();
 
         const dataValidation = await authenticateUser(e);
-        if (!dataValidation) return; // "Invalid data"
+        if (!dataValidation) return; // "Invalid data -> Throw error with error boundaries"
 
         const data = { user, password };
         const transferData = {
