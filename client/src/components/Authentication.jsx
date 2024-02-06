@@ -45,7 +45,6 @@ const Authentication = () => {
         const checkPassword = password === confirmPassword;
         const checkUser = checkUserPattern(user);
         const checkAll = allFields && checkPassword && checkUser;
-        console.log(checkAll);
         if (!checkAll) return; // "Invalid data -> Throw error with error boundaries"
         try {
             const data = { user, password };
