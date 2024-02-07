@@ -99,7 +99,7 @@ const Authentication = () => {
                 <div className="from-container-introduction">
                     <h1 className="from-container-title">Welcome to Dissertify-Hub</h1>
                     <p className="from-container-description">
-                        The place where a dissertation becomes everytime a possibility.
+                        The place where an open communication between a professor and a student becomes a possibility.
                     </p>
                 </div>
 
