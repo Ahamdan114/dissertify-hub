@@ -169,7 +169,7 @@ const Authentication = () => {
                     <div className="auth-redirection">
                         <p>Already have an account?</p>
                         <button className="auth-redirection-btn" onClick={redirectLogin}>
-                            Login
+                            Login here.
                         </button>
                     </div>
                 </div>
